@@ -38,7 +38,9 @@ function App() {
     }
     if (!member.username || !member.email) return
 
-    setTeamMembers([member])
+    setTeamMembers([...teamMembers,member])
+
+    return setFormValue(initialFormValues)
   }
   
   return (

@@ -2,7 +2,7 @@ import React from 'react'
 
 function Member(props){
     const { detail } = props
-    console.log(detail)
+    
     if(!detail){
         return <h3>
             Working fetching your friend&apos;s detail..
