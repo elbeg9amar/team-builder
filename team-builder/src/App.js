@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
+
 import { v4 as uuid } from 'uuid'
 import './App.css';
 import Form from './Form'
+import Member from './Member'
 
 
-const initialMembersList = [{
+const initialMemberList = [{
     id: uuid(), 
     username: 'Michael',
     email: 'michael@michael.com',
@@ -18,18 +20,46 @@ const initialFormValues = {
 }
 
 function App() {
-  const [teamMembers,  setTeamMembers] = useState(initialFormValues)
-
+  const [teamMembers,  setTeamMembers] = useState([])
+  
   const [formValues,setFormValue] = useState(initialFormValues)
 
-  // const UpdateFrom = 
+ 
+  const updateForm =(inputName, inputValue) => {
+    setFormValue({...formValues,[inputName]:inputValue})
+  }
 
+  const submitForm =() => {
+    const member = {
+      id: uuid(),
+      username: formValues.username.trim(),
+      email: formValues.email.trim(),
+      role: formValues.role,
+    }
+    if (!member.username || !member.email) return
+
+    setTeamMembers([member])
+  }
+  
   return (
     <div className='container'>
         <header><h1>Team Members</h1></header>
 
-        <Form />
-
+        <Form 
+        
+        values={formValues}
+        update={ updateForm } 
+        submit={submitForm}
+        
+        />
+      {
+        teamMembers.map(member => {
+            
+              return <Member detail={member}/>
+            
+        })
+      }
+        
 
 
 
